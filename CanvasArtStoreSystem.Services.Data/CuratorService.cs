@@ -58,5 +58,18 @@ namespace CanvasArtStoreSystem.Services.Data
             await this.dbContext.Curators.AddAsync(newCurator);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<string?> GetCuratorIdByUserIdAsync(string userId)
+        {
+            Curator? curator = await this.dbContext
+                .Curators
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+            if (curator == null)
+            {
+                return null;
+            }
+
+            return curator.Id.ToString();
+        }
     }
 }

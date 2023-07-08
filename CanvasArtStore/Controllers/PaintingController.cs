@@ -15,8 +15,7 @@ public class PaintingController : Controller
     private readonly ICuratorService curatorService;
     private readonly IPaintingService paintingService;
 
-    public PaintingController(ICategoryService categoryService, ICuratorService curatorService,
-        IPaintingService paintingService)
+    public PaintingController(ICategoryService categoryService, ICuratorService curatorService, IPaintingService paintingService)
     {
         this.categoryService = categoryService;
         this.curatorService = curatorService;
@@ -65,50 +64,50 @@ public class PaintingController : Controller
         }
     }
 
-    //[HttpPost]
-    //public async Task<IActionResult> Add(PaintingFormModel model)
-    //{
-    //    bool isCurator =
-    //        await this.curatorService.CuratorExistsByUserIdAsync(this.User.GetId()!);
-    //    if (!isCurator)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must become a curator in order to add new paintings!";
+    [HttpPost]
+    public async Task<IActionResult> Add(PaintingFormModel model)
+    {
+        bool isCurator =
+            await this.curatorService.CuratorExistsByUserIdAsync(this.User.GetId()!);
+        if (!isCurator)
+        {
+            this.TempData[ErrorMessage] = "You must become a curator in order to add new paintings!";
 
-    //        return this.RedirectToAction("Become", "Curator");
-    //    }
+            return this.RedirectToAction("Become", "Curator");
+        }
 
-    //    bool categoryExists =
-    //        await this.categoryService.ExistsByIdAsync(model.CategoryId);
-    //    if (!categoryExists)
-    //    {
-    //        // Adding model error to ModelState automatically makes ModelState Invalid
-    //        this.ModelState.AddModelError(nameof(model.CategoryId), "Selected category does not exist!");
-    //    }
+        bool categoryExists =
+            await this.categoryService.ExistsByIdAsync(model.CategoryId);
+        if (!categoryExists)
+        {
+            // Adding model error to ModelState automatically makes ModelState Invalid
+            this.ModelState.AddModelError(nameof(model.CategoryId), "Selected category does not exist!");
+        }
 
-    //    if (!this.ModelState.IsValid)
-    //    {
-    //        model.Categories = await this.categoryService.AllCategoriesAsync();
+        if (!this.ModelState.IsValid)
+        {
+            model.Categories = await this.categoryService.AllCategoriesAsync();
 
-    //        return this.View(model);
-    //    }
+            return this.View(model);
+        }
 
-    //    try
-    //    {
-    //        string? curatorId =
-    //            await this.curatorService.GetCuratorIdByUserIdAsync(this.User.GetId()!);
+        try
+        {
+            string? curatorId =
+                await this.curatorService.GetCuratorIdByUserIdAsync(this.User.GetId()!);
 
-    //        string paintingId =
-    //            await this.paintingService.CreateAndReturnIdAsync(model, curatorId!);
+            string paintingId =
+                await this.paintingService.CreateAndReturnIdAsync(model, curatorId!);
 
-    //        this.TempData[SuccessMessage] = "Painting was added successfully!";
-    //        return this.RedirectToAction("Details", "Painting", new { id = paintingId });
-    //    }
-    //    catch (Exception)
-    //    {
-    //        this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add your new painting! Please try again later or contact administrator!");
-    //        model.Categories = await this.categoryService.AllCategoriesAsync();
+            this.TempData[SuccessMessage] = "Painting was added successfully!";
+            return this.RedirectToAction("Details", "Painting", new { id = paintingId });
+        }
+        catch (Exception)
+        {
+            this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add your new painting! Please try again later or contact administrator!");
+            model.Categories = await this.categoryService.AllCategoriesAsync();
 
-    //        return this.View(model);
-    //    }
-    //}
+            return this.View(model);
+        }
+    }
 }

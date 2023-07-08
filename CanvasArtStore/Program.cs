@@ -4,6 +4,7 @@ using CanvasArtStore.Data;
 using CanvasArtStore.Data.Models;
 using CanvasArtStore.Web.Infrastructure.Extensions;
 using CanvasArtStoreSystem.Services.Data.Interfaces;
+using CanvasArtStore.Web.Infrastructure.ModelBinders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +34,12 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 builder.Services.AddApplicationServices(typeof(IPaintingService));
 
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+       options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    });
 
 // Order up to here doesn't matter, later - does.
 

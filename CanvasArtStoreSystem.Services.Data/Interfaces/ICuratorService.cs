@@ -12,6 +12,8 @@ namespace CanvasArtStoreSystem.Services.Data.Interfaces
 
         Task Create(string userId, BecomeCuratorFormModel model);
 
+        Task<string?> GetCuratorIdByUserIdAsync(string userId);
+
     }
 }
  
