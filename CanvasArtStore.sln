@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore", "CanvasArtStore\CanvasArtStore.csproj", "{1B3D8BE2-5F54-4DA1-AF94-81FEB6EE3458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.Web", "CanvasArtStore\CanvasArtStore.Web.csproj", "{1B3D8BE2-5F54-4DA1-AF94-81FEB6EE3458}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.Common", "CanvasArtStore.Common\CanvasArtStore.Common.csproj", "{86110AA6-7DBC-4B80-8185-E9C8921AFB88}"
 EndProject
@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.ViewModels",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1D902E8E-2977-4C7A-AF9C-3BCFBFDF48BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanvasArtStoreSystem.Services.Data", "CanvasArtStoreSystem.Services.Data\CanvasArtStoreSystem.Services.Data.csproj", "{DD92F14D-FEE4-4397-9AA7-8D6EAC0075C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStoreSystem.Services.Data", "CanvasArtStoreSystem.Services.Data\CanvasArtStoreSystem.Services.Data.csproj", "{DD92F14D-FEE4-4397-9AA7-8D6EAC0075C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanvasArtStore.Web.Infrastructure", "CanvasArtStore.Web.Infrastructure\CanvasArtStore.Web.Infrastructure.csproj", "{44D8CEE9-1B32-48DA-96AC-BC3BEAC02CDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.Web.Infrastructure", "CanvasArtStore.Web.Infrastructure\CanvasArtStore.Web.Infrastructure.csproj", "{44D8CEE9-1B32-48DA-96AC-BC3BEAC02CDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

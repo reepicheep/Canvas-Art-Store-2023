@@ -6,7 +6,7 @@ using static CanvasArtStore.Web.Infrastructure.Extensions.ClaimsPrincipalExtensi
 using static CanvasArtStore.Common.NotificationMessagesConstants;
 using CanvasArtStore.ViewModels.Curator;
 
-namespace CanvasArtStore.Controllers
+namespace CanvasArtStore.Web.Controllers
 {
     [Authorize]
     public class CuratorController : Controller
@@ -21,64 +21,64 @@ namespace CanvasArtStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Become()
         {
-            string? userId = this.User.GetId();
-            bool isCurator = await this.curatorService.CuratorExistsByUserIdAsync(userId);
+            string? userId = User.GetId();
+            bool isCurator = await curatorService.CuratorExistsByUserIdAsync(userId);
             if (isCurator)
             {
-                this.TempData[ErrorMessage] = "You are already a curator!";
+                TempData[ErrorMessage] = "You are already a curator!";
 
-                return this.RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
-            return this.View();
+            return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Become(BecomeCuratorFormModel model)
         {
-            string? userId = this.User.GetId();
-            bool isCurator = await this.curatorService.CuratorExistsByUserIdAsync(userId);
+            string? userId = User.GetId();
+            bool isCurator = await curatorService.CuratorExistsByUserIdAsync(userId);
             if (isCurator)
             {
-                this.TempData[ErrorMessage] = "You are already a curator!";
+                TempData[ErrorMessage] = "You are already a curator!";
 
-                return this.RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             bool isPhoneNumberTaken =
-                await this.curatorService.CuratorExistsByPhoneNumberAsync(model.PhoneNumber);
+                await curatorService.CuratorExistsByPhoneNumberAsync(model.PhoneNumber);
             if (isPhoneNumberTaken)
             {
-                this.ModelState.AddModelError(nameof(model.PhoneNumber), "Curator with the provided phone number already exists!");
+                ModelState.AddModelError(nameof(model.PhoneNumber), "Curator with the provided phone number already exists!");
             }
 
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
-            bool userHasActiveBuys = await this.curatorService
+            bool userHasActiveBuys = await curatorService
                 .HasBuysByUserIdAsync(userId);
             if (userHasActiveBuys)
             {
-                this.TempData[ErrorMessage] = "You must not have any active buys in order to become a curator!";
+                TempData[ErrorMessage] = "You must not have any active buys in order to become a curator!";
 
-                return this.RedirectToAction("Mine", "Painting");
+                return RedirectToAction("Mine", "Painting");
             }
 
             try
             {
-                await this.curatorService.Create(userId, model);
+                await curatorService.Create(userId, model);
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] =
+                TempData[ErrorMessage] =
                     "Unexpected error occurred while registering you as a curator! Please try again later or contact administrator.";
 
-                return this.RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
-            return this.RedirectToAction("All", "Painting");
+            return RedirectToAction("All", "Painting");
         }
     }
 }

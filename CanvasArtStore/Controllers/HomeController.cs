@@ -3,7 +3,7 @@ using CanvasArtStoreSystem.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace CanvasArtStore.Controllers
+namespace CanvasArtStore.Web.Controllers
 {
     public class HomeController : Controller
     {
@@ -17,7 +17,7 @@ namespace CanvasArtStore.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<IndexViewModel> viewModel =
-               await this.paintingService.LastThreePaintingsAsync();
+               await paintingService.LastThreePaintingsAsync();
 
             return View(viewModel);
         }
