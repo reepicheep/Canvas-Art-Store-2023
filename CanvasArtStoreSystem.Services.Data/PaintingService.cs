@@ -92,7 +92,7 @@ namespace CanvasArtStoreSystem.Services.Data
             };
 
             IEnumerable<PaintingAllViewModel> allPaintings = await paintingsQuery
-                //.Where(p => p.IsActive)
+                //.Where(p => p.IsActive) // TODO: Check
                 .Skip((queryModel.CurrentPage - 1) * queryModel.PaintingsPerPage)
                 .Take(queryModel.PaintingsPerPage)
                 .Select(p => new PaintingAllViewModel
