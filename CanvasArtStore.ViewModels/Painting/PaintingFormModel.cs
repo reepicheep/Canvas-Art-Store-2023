@@ -20,7 +20,7 @@ namespace CanvasArtStore.Web.ViewModels.Painting
         public string Title { get; set; } = null!;
 
 
-        // Address === Author NB!
+        // Address === Author NB! TODO
         [Required]
         [StringLength(AuthorMaxLength, MinimumLength = AuthorMinLength)]
         [Display(Name = "Author")]

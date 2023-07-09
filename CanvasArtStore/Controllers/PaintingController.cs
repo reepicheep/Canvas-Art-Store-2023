@@ -1,6 +1,7 @@
 ﻿using CanvasArtStore.Web.Infrastructure.Extensions;
 using CanvasArtStore.Web.ViewModels.Painting;
 using CanvasArtStoreSystem.Services.Data.Interfaces;
+using CanvasArtStoreSystem.Services.Data.Services.Data.Models.Painting;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,16 +25,16 @@ public class PaintingController : Controller
 
     [HttpGet]
     [AllowAnonymous]
-    public async Task<IActionResult> All(/*[FromQuery] AllPaintingsQueryModel queryModel*/)
+    public async Task<IActionResult> All([FromQuery] AllPaintingsQueryModel queryModel)
     {
-        //AllPaintingsFilteredAndPagedServiceModel serviceModel =
-        //    await this.paintingService.AllAsync(queryModel);
+        AllPaintingsFilteredAndPagedServiceModel serviceModel =
+            await this.paintingService.AllAsync(queryModel);
 
-        //queryModel.Houses = serviceModel.Houses;
-        //queryModel.TotalHouses = serviceModel.TotalHousesCount;
-        //queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
+        queryModel.Paintings = serviceModel.Paintings;
+        queryModel.TotalPaintings = serviceModel.TotalPaintingsCount;
+        queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
 
-        return this.View(/*queryModel*/);
+        return this.View(queryModel);
     }
 
     [HttpGet]
