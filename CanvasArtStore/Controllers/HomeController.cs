@@ -1,4 +1,4 @@
-﻿using CanvasArtStore.ViewModels.Home;
+﻿using CanvasArtStore.Web.ViewModels.Home;
 using CanvasArtStoreSystem.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

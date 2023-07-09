@@ -1,5 +1,5 @@
-﻿using CanvasArtStore.ViewModels.Painting;
-using CanvasArtStore.Web.Infrastructure.Extensions;
+﻿using CanvasArtStore.Web.Infrastructure.Extensions;
+using CanvasArtStore.Web.ViewModels.Painting;
 using CanvasArtStoreSystem.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

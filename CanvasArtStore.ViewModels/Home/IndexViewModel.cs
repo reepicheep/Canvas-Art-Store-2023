@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CanvasArtStore.ViewModels.Home
+namespace CanvasArtStore.Web.ViewModels.Home
 {
     public class IndexViewModel
     {

@@ -1,4 +1,4 @@
-namespace CanvasArtStore.ViewModels.Home
+namespace CanvasArtStore.Web.ViewModels.Home
 {
     public class ErrorViewModel
     {

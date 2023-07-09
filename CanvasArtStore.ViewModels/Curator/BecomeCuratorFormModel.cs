@@ -2,7 +2,7 @@
 
 using static CanvasArtStore.Common.EntityValidationConstants.Curator;
 
-namespace CanvasArtStore.ViewModels.Curator
+namespace CanvasArtStore.Web.ViewModels.Curator
 {
     public class BecomeCuratorFormModel
     {

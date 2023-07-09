@@ -3,8 +3,8 @@ using CanvasArtStore.Data.Models;
 using CanvasArtStoreSystem.Services.Data.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
-using CanvasArtStore.ViewModels.Curator;
- 
+using CanvasArtStore.Web.ViewModels.Curator;
+
 namespace CanvasArtStoreSystem.Services.Data
 {
     public class CuratorService : ICuratorService

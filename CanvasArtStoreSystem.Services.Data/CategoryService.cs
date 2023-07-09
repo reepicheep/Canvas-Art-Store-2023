@@ -1,5 +1,5 @@
 ﻿using CanvasArtStore.Data;
-using CanvasArtStore.ViewModels.Category;
+using CanvasArtStore.Web.ViewModels.Category;
 using CanvasArtStoreSystem.Services.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

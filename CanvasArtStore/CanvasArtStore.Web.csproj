@@ -19,7 +19,7 @@
     <ProjectReference Include="..\CanvasArtStore.Common\CanvasArtStore.Common.csproj" />
     <ProjectReference Include="..\CanvasArtStore.Data.Models\CanvasArtStore.Data.Models.csproj" />
     <ProjectReference Include="..\CanvasArtStore.Data\CanvasArtStore.Data.csproj" />
-    <ProjectReference Include="..\CanvasArtStore.ViewModels\CanvasArtStore.ViewModels.csproj" />
+    <ProjectReference Include="..\CanvasArtStore.ViewModels\CanvasArtStore.Web.ViewModels.csproj" />
     <ProjectReference Include="..\CanvasArtStore.Web.Infrastructure\CanvasArtStore.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\CanvasArtStoreSystem.Services.Data\CanvasArtStoreSystem.Services.Data.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using CanvasArtStore.ViewModels.Home;
+﻿using CanvasArtStore.Web.ViewModels.Home;
+using CanvasArtStore.Web.ViewModels.Painting;
 
 namespace CanvasArtStoreSystem.Services.Data.Interfaces
 {
@@ -6,9 +7,9 @@ namespace CanvasArtStoreSystem.Services.Data.Interfaces
     {
         Task<IEnumerable<IndexViewModel>> LastThreePaintingsAsync();
 
-        Task<string> CreateAndReturnIdAsync(CanvasArtStore.ViewModels.Painting.PaintingFormModel formModel, string curatorId);
+        Task<string> CreateAndReturnIdAsync(PaintingFormModel formModel, string curatorId);
 
-        //Task<AllHousesFilteredAndPagedServiceModel> AllAsync(AllHousesQueryModel queryModel);
+        Task<AllPaintingsFilteredAndPagedServiceModel> AllAsync(AllPaintingsQueryModel queryModel);
 
         //Task<IEnumerable<HouseAllViewModel>> AllByAgentIdAsync(string agentId);
 

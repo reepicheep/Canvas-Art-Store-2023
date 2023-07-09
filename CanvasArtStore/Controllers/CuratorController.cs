@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using static CanvasArtStore.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
 using static CanvasArtStore.Common.NotificationMessagesConstants;
-using CanvasArtStore.ViewModels.Curator;
+using CanvasArtStore.Web.ViewModels.Curator;
 
 namespace CanvasArtStore.Web.Controllers
 {

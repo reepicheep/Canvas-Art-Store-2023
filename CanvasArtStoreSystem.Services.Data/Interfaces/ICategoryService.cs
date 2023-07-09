@@ -1,4 +1,4 @@
-﻿using CanvasArtStore.ViewModels.Category;
+﻿using CanvasArtStore.Web.ViewModels.Category;
 
 namespace CanvasArtStoreSystem.Services.Data.Interfaces
 {

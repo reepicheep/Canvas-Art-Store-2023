@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -11,6 +11,8 @@
     <ProjectReference Include="..\CanvasArtStore.Data.Models\CanvasArtStore.Data.Models.csproj" />
     <ProjectReference Include="..\CanvasArtStore.Data\CanvasArtStore.Data.csproj" />
     <ProjectReference Include="..\CanvasArtStore.ViewModels\CanvasArtStore.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\CanvasArtStoreSystem.Services.Data\CanvasArtStoreSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\CanvasArtStore\CanvasArtStore.Web.csproj" />
   </ItemGroup>
 
 </Project>

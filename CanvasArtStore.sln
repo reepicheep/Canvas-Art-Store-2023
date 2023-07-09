@@ -15,13 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.Data", "Canv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.Data.Models", "CanvasArtStore.Data.Models\CanvasArtStore.Data.Models.csproj", "{3C2FA933-C444-4640-9B4C-4BF493E1327B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.ViewModels", "CanvasArtStore.ViewModels\CanvasArtStore.ViewModels.csproj", "{42B3122C-00C0-48C7-813F-6495C6F26EF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.Web.ViewModels", "CanvasArtStore.ViewModels\CanvasArtStore.Web.ViewModels.csproj", "{42B3122C-00C0-48C7-813F-6495C6F26EF7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1D902E8E-2977-4C7A-AF9C-3BCFBFDF48BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStoreSystem.Services.Data", "CanvasArtStoreSystem.Services.Data\CanvasArtStoreSystem.Services.Data.csproj", "{DD92F14D-FEE4-4397-9AA7-8D6EAC0075C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanvasArtStore.Web.Infrastructure", "CanvasArtStore.Web.Infrastructure\CanvasArtStore.Web.Infrastructure.csproj", "{44D8CEE9-1B32-48DA-96AC-BC3BEAC02CDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanvasArtStore.Services.Data.Models", "CanvasArtStore.Services.Data.Models\CanvasArtStore.Services.Data.Models.csproj", "{A7137474-2C58-45A5-8B57-86328CD773C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{44D8CEE9-1B32-48DA-96AC-BC3BEAC02CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44D8CEE9-1B32-48DA-96AC-BC3BEAC02CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44D8CEE9-1B32-48DA-96AC-BC3BEAC02CDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7137474-2C58-45A5-8B57-86328CD773C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7137474-2C58-45A5-8B57-86328CD773C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7137474-2C58-45A5-8B57-86328CD773C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7137474-2C58-45A5-8B57-86328CD773C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{42B3122C-00C0-48C7-813F-6495C6F26EF7} = {5E2C4491-E97C-4DA6-8973-F580AFAE08AA}
 		{DD92F14D-FEE4-4397-9AA7-8D6EAC0075C1} = {1D902E8E-2977-4C7A-AF9C-3BCFBFDF48BC}
 		{44D8CEE9-1B32-48DA-96AC-BC3BEAC02CDC} = {5E2C4491-E97C-4DA6-8973-F580AFAE08AA}
+		{A7137474-2C58-45A5-8B57-86328CD773C2} = {1D902E8E-2977-4C7A-AF9C-3BCFBFDF48BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A895CC6-E985-4A3E-B47A-4FFE10380343}

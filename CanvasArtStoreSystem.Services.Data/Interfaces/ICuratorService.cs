@@ -1,4 +1,4 @@
-﻿using CanvasArtStore.ViewModels.Curator;
+﻿using CanvasArtStore.Web.ViewModels.Curator;
 
 namespace CanvasArtStoreSystem.Services.Data.Interfaces
 {

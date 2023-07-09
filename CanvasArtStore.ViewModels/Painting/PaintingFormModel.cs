@@ -1,5 +1,4 @@
-﻿using CanvasArtStore.ViewModels.Category;
-
+﻿using CanvasArtStore.Web.ViewModels.Category;
 using System.ComponentModel.DataAnnotations;
 
 using static CanvasArtStore.Common.EntityValidationConstants.Category;
@@ -7,13 +6,13 @@ using static CanvasArtStore.Common.EntityValidationConstants.Category;
 using static CanvasArtStore.Common.EntityValidationConstants.Painting;
 
 
-namespace CanvasArtStore.ViewModels.Painting
+namespace CanvasArtStore.Web.ViewModels.Painting
 {
     public class PaintingFormModel
     {
         public PaintingFormModel()
         {
-            this.Categories = new HashSet<PaintingSelectCategoryFormModel>();
+            Categories = new HashSet<PaintingSelectCategoryFormModel>();
         }
 
         [Required]
@@ -25,7 +24,7 @@ namespace CanvasArtStore.ViewModels.Painting
         [Required]
         [StringLength(AuthorMaxLength, MinimumLength = AuthorMinLength)]
         [Display(Name = "Author")]
-        public string Author { get; set; } = null!; 
+        public string Author { get; set; } = null!;
 
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
