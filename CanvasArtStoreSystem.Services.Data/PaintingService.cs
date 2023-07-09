@@ -4,6 +4,7 @@ using CanvasArtStore.Web.ViewModels.Home;
 using CanvasArtStore.Web.ViewModels.Painting;
 using CanvasArtStore.Web.ViewModels.Painting.Enums;
 using CanvasArtStoreSystem.Services.Data.Interfaces;
+using CanvasArtStoreSystem.Services.Data.Services.Data.Models.Painting;
 using Microsoft.EntityFrameworkCore;
 
 namespace CanvasArtStoreSystem.Services.Data
@@ -62,208 +63,208 @@ namespace CanvasArtStoreSystem.Services.Data
             if (!string.IsNullOrWhiteSpace(queryModel.Category))
             {
                 paintingsQuery = paintingsQuery
-                    .Where(h => h.Category.Name == queryModel.Category);
+                    .Where(p => p.Category.Name == queryModel.Category);
             }
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
             {
                 string wildCard = $"%{queryModel.SearchString.ToLower()}%";
-
+                 
                 paintingsQuery = paintingsQuery
-                    .Where(h => EF.Functions.Like(h.Title, wildCard) ||
-                                EF.Functions.Like(h.Author, wildCard) ||
-                                EF.Functions.Like(h.Description, wildCard));
+                    .Where(p => EF.Functions.Like(p.Title, wildCard) ||
+                                EF.Functions.Like(p.Author, wildCard) ||
+                                EF.Functions.Like(p.Description, wildCard));
             }
 
             paintingsQuery = queryModel.PaintingSorting switch
             {
                 PaintingSorting.Newest => paintingsQuery
-                    .OrderByDescending(h => h.CreatedOn),
+                    .OrderByDescending(p => p.CreatedOn),
                 PaintingSorting.Oldest => paintingsQuery
-                    .OrderBy(h => h.CreatedOn),
+                    .OrderBy(p => p.CreatedOn),
                 PaintingSorting.PriceAscending => paintingsQuery
-                    .OrderBy(h => h.Price),
+                    .OrderBy(p => p.Price),
                 PaintingSorting.PriceDescending => paintingsQuery
-                    .OrderByDescending(h => h.Price),
+                    .OrderByDescending(p => p.Price),
                 _ => paintingsQuery
-                    .OrderBy(h => h.BuyerId != null)
-                    .ThenByDescending(h => h.CreatedOn)
+                    .OrderBy(p => p.BuyerId != null)
+                    .ThenByDescending(p => p.CreatedOn)
             };
 
-            //    IEnumerable<HouseAllViewModel> allHouses = await housesQuery
-            //        .Where(h => h.IsActive)
-            //        .Skip((queryModel.CurrentPage - 1) * queryModel.HousesPerPage)
-            //        .Take(queryModel.HousesPerPage)
-            //        .Select(h => new HouseAllViewModel
-            //        {
-            //            Id = h.Id.ToString(),
-            //            Title = h.Title,
-            //            Address = h.Address,
-            //            ImageUrl = h.ImageUrl,
-            //            PricePerMonth = h.PricePerMonth,
-            //            IsRented = h.RenterId.HasValue
-            //        })
-            //        .ToArrayAsync();
-            //    int totalHouses = housesQuery.Count();
+            IEnumerable<PaintingAllViewModel> allPaintings = await paintingsQuery
+                .Where(p => p.IsActive)
+                .Skip((queryModel.CurrentPage - 1) * queryModel.PaintingsPerPage)
+                .Take(queryModel.PaintingsPerPage)
+                .Select(p => new PaintingAllViewModel
+                {
+                    Id = p.Id.ToString(),
+                    Title = p.Title,
+                    Author = p.Author,
+                    ImageUrl = p.ImageUrl,
+                    Price = p.Price,
+                    IsBought = p.BuyerId.HasValue
+                })
+                .ToArrayAsync();
 
-            //    return new AllHousesFilteredAndPagedServiceModel()
-            //    {
-            //        TotalHousesCount = totalHouses,
-            //        Houses = allHouses
-            //    };
-            //}
+            int totalPaintings = paintingsQuery.Count();
 
-            //public async Task<IEnumerable<HouseAllViewModel>> AllByAgentIdAsync(string agentId)
-            //{
-            //    IEnumerable<HouseAllViewModel> allAgentHouses = await this.dbContext
-            //        .Houses
-            //        .Where(h => h.IsActive &&
-            //                    h.AgentId.ToString() == agentId)
-            //        .Select(h => new HouseAllViewModel
-            //        {
-            //            Id = h.Id.ToString(),
-            //            Title = h.Title,
-            //            Address = h.Address,
-            //            ImageUrl = h.ImageUrl,
-            //            PricePerMonth = h.PricePerMonth,
-            //            IsRented = h.RenterId.HasValue
-            //        })
-            //        .ToArrayAsync();
-
-            //    return allAgentHouses;
-            //}
-
-            //public async Task<IEnumerable<HouseAllViewModel>> AllByUserIdAsync(string userId)
-            //{
-            //    IEnumerable<HouseAllViewModel> allUserHouses = await this.dbContext
-            //        .Houses
-            //        .Where(h => h.IsActive &&
-            //                    h.RenterId.HasValue &&
-            //                    h.RenterId.ToString() == userId)
-            //        .Select(h => new HouseAllViewModel
-            //        {
-            //            Id = h.Id.ToString(),
-            //            Title = h.Title,
-            //            Address = h.Address,
-            //            ImageUrl = h.ImageUrl,
-            //            PricePerMonth = h.PricePerMonth,
-            //            IsRented = h.RenterId.HasValue
-            //        })
-            //        .ToArrayAsync();
-
-            //    return allUserHouses;
-            //}
-
-            //public async Task<bool> ExistsByIdAsync(string houseId)
-            //{
-            //    bool result = await this.dbContext
-            //        .Houses
-            //        .Where(h => h.IsActive)
-            //        .AnyAsync(h => h.Id.ToString() == houseId);
-
-            //    return result;
-            //}
-
-            //public async Task<HouseDetailsViewModel> GetDetailsByIdAsync(string houseId)
-            //{
-            //    House house = await this.dbContext
-            //        .Houses
-            //        .Include(h => h.Category)
-            //        .Include(h => h.Agent)
-            //        .ThenInclude(a => a.User)
-            //        .Where(h => h.IsActive)
-            //        .FirstAsync(h => h.Id.ToString() == houseId);
-
-            //    return new HouseDetailsViewModel
-            //    {
-            //        Id = house.Id.ToString(),
-            //        Title = house.Title,
-            //        Address = house.Address,
-            //        ImageUrl = house.ImageUrl,
-            //        PricePerMonth = house.PricePerMonth,
-            //        IsRented = house.RenterId.HasValue,
-            //        Description = house.Description,
-            //        Category = house.Category.Name,
-            //        Agent = new AgentInfoOnHouseViewModel()
-            //        {
-            //            Email = house.Agent.User.Email,
-            //            PhoneNumber = house.Agent.PhoneNumber
-            //        }
-            //    };
-            //}
-
-            //public async Task<HouseFormModel> GetHouseForEditByIdAsync(string houseId)
-            //{
-            //    House house = await this.dbContext
-            //        .Houses
-            //        .Include(h => h.Category)
-            //        .Where(h => h.IsActive)
-            //        .FirstAsync(h => h.Id.ToString() == houseId);
-
-            //    return new HouseFormModel
-            //    {
-            //        Title = house.Title,
-            //        Address = house.Address,
-            //        Description = house.Description,
-            //        ImageUrl = house.ImageUrl,
-            //        PricePerMonth = house.PricePerMonth,
-            //        CategoryId = house.CategoryId,
-            //    };
-            //}
-
-            //public async Task<bool> IsAgentWithIdOwnerOfHouseWithIdAsync(string houseId, string agentId)
-            //{
-            //    House house = await this.dbContext
-            //        .Houses
-            //        .Where(h => h.IsActive)
-            //        .FirstAsync(h => h.Id.ToString() == houseId);
-
-            //    return house.AgentId.ToString() == agentId;
-            //}
-
-            //public async Task EditHouseByIdAndFormModelAsync(string houseId, HouseFormModel formModel)
-            //{
-            //    House house = await this.dbContext
-            //        .Houses
-            //        .Where(h => h.IsActive)
-            //        .FirstAsync(h => h.Id.ToString() == houseId);
-
-            //    house.Title = formModel.Title;
-            //    house.Address = formModel.Address;
-            //    house.Description = formModel.Description;
-            //    house.ImageUrl = formModel.ImageUrl;
-            //    house.PricePerMonth = formModel.PricePerMonth;
-            //    house.CategoryId = formModel.CategoryId;
-
-            //    await this.dbContext.SaveChangesAsync();
-            //}
-
-            //public async Task<HousePreDeleteDetailsViewModel> GetHouseForDeleteByIdAsync(string houseId)
-            //{
-            //    House house = await this.dbContext
-            //        .Houses
-            //        .Where(h => h.IsActive)
-            //        .FirstAsync(h => h.Id.ToString() == houseId);
-
-            //    return new HousePreDeleteDetailsViewModel
-            //    {
-            //        Title = house.Title,
-            //        Address = house.Address,
-            //        ImageUrl = house.ImageUrl
-            //    };
-            //}
-
-            //public async Task DeleteHouseByIdAsync(string houseId)
-            //{
-            //    House houseToDelete = await this.dbContext
-            //        .Houses
-            //        .Where(h => h.IsActive)
-            //        .FirstAsync(h => h.Id.ToString() == houseId);
-
-            //    houseToDelete.IsActive = false;
-
-            //    await this.dbContext.SaveChangesAsync();
-            //}
+            return new AllPaintingsFilteredAndPagedServiceModel()
+            {
+                TotalPaintingsCount = totalPaintings,
+                Paintings = allPaintings
+            };
         }
+
+        //public async Task<IEnumerable<HouseAllViewModel>> AllByAgentIdAsync(string agentId)
+        //{
+        //    IEnumerable<HouseAllViewModel> allAgentHouses = await this.dbContext
+        //        .Houses
+        //        .Where(h => h.IsActive &&
+        //                    h.AgentId.ToString() == agentId)
+        //        .Select(h => new HouseAllViewModel
+        //        {
+        //            Id = h.Id.ToString(),
+        //            Title = h.Title,
+        //            Address = h.Address,
+        //            ImageUrl = h.ImageUrl,
+        //            PricePerMonth = h.PricePerMonth,
+        //            IsRented = h.RenterId.HasValue
+        //        })
+        //        .ToArrayAsync();
+
+        //    return allAgentHouses;
+        //}
+
+        //public async Task<IEnumerable<HouseAllViewModel>> AllByUserIdAsync(string userId)
+        //{
+        //    IEnumerable<HouseAllViewModel> allUserHouses = await this.dbContext
+        //        .Houses
+        //        .Where(h => h.IsActive &&
+        //                    h.RenterId.HasValue &&
+        //                    h.RenterId.ToString() == userId)
+        //        .Select(h => new HouseAllViewModel
+        //        {
+        //            Id = h.Id.ToString(),
+        //            Title = h.Title,
+        //            Address = h.Address,
+        //            ImageUrl = h.ImageUrl,
+        //            PricePerMonth = h.PricePerMonth,
+        //            IsRented = h.RenterId.HasValue
+        //        })
+        //        .ToArrayAsync();
+
+        //    return allUserHouses;
+        //}
+
+        //public async Task<bool> ExistsByIdAsync(string houseId)
+        //{
+        //    bool result = await this.dbContext
+        //        .Houses
+        //        .Where(h => h.IsActive)
+        //        .AnyAsync(h => h.Id.ToString() == houseId);
+
+        //    return result;
+        //}
+
+        //public async Task<HouseDetailsViewModel> GetDetailsByIdAsync(string houseId)
+        //{
+        //    House house = await this.dbContext
+        //        .Houses
+        //        .Include(h => h.Category)
+        //        .Include(h => h.Agent)
+        //        .ThenInclude(a => a.User)
+        //        .Where(h => h.IsActive)
+        //        .FirstAsync(h => h.Id.ToString() == houseId);
+
+        //    return new HouseDetailsViewModel
+        //    {
+        //        Id = house.Id.ToString(),
+        //        Title = house.Title,
+        //        Address = house.Address,
+        //        ImageUrl = house.ImageUrl,
+        //        PricePerMonth = house.PricePerMonth,
+        //        IsRented = house.RenterId.HasValue,
+        //        Description = house.Description,
+        //        Category = house.Category.Name,
+        //        Agent = new AgentInfoOnHouseViewModel()
+        //        {
+        //            Email = house.Agent.User.Email,
+        //            PhoneNumber = house.Agent.PhoneNumber
+        //        }
+        //    };
+        //}
+
+        //public async Task<HouseFormModel> GetHouseForEditByIdAsync(string houseId)
+        //{
+        //    House house = await this.dbContext
+        //        .Houses
+        //        .Include(h => h.Category)
+        //        .Where(h => h.IsActive)
+        //        .FirstAsync(h => h.Id.ToString() == houseId);
+
+        //    return new HouseFormModel
+        //    {
+        //        Title = house.Title,
+        //        Address = house.Address,
+        //        Description = house.Description,
+        //        ImageUrl = house.ImageUrl,
+        //        PricePerMonth = house.PricePerMonth,
+        //        CategoryId = house.CategoryId,
+        //    };
+        //}
+
+        //public async Task<bool> IsAgentWithIdOwnerOfHouseWithIdAsync(string houseId, string agentId)
+        //{
+        //    House house = await this.dbContext
+        //        .Houses
+        //        .Where(h => h.IsActive)
+        //        .FirstAsync(h => h.Id.ToString() == houseId);
+
+        //    return house.AgentId.ToString() == agentId;
+        //}
+
+        //public async Task EditHouseByIdAndFormModelAsync(string houseId, HouseFormModel formModel)
+        //{
+        //    House house = await this.dbContext
+        //        .Houses
+        //        .Where(h => h.IsActive)
+        //        .FirstAsync(h => h.Id.ToString() == houseId);
+
+        //    house.Title = formModel.Title;
+        //    house.Address = formModel.Address;
+        //    house.Description = formModel.Description;
+        //    house.ImageUrl = formModel.ImageUrl;
+        //    house.PricePerMonth = formModel.PricePerMonth;
+        //    house.CategoryId = formModel.CategoryId;
+
+        //    await this.dbContext.SaveChangesAsync();
+        //}
+
+        //public async Task<HousePreDeleteDetailsViewModel> GetHouseForDeleteByIdAsync(string houseId)
+        //{
+        //    House house = await this.dbContext
+        //        .Houses
+        //        .Where(h => h.IsActive)
+        //        .FirstAsync(h => h.Id.ToString() == houseId);
+
+        //    return new HousePreDeleteDetailsViewModel
+        //    {
+        //        Title = house.Title,
+        //        Address = house.Address,
+        //        ImageUrl = house.ImageUrl
+        //    };
+        //}
+
+        //public async Task DeleteHouseByIdAsync(string houseId)
+        //{
+        //    House houseToDelete = await this.dbContext
+        //        .Houses
+        //        .Where(h => h.IsActive)
+        //        .FirstAsync(h => h.Id.ToString() == houseId);
+
+        //    houseToDelete.IsActive = false;
+
+        //    await this.dbContext.SaveChangesAsync();
+        //}
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CanvasArtStore.Web.ViewModels.Home;
 using CanvasArtStore.Web.ViewModels.Painting;
+using CanvasArtStoreSystem.Services.Data.Services.Data.Models.Painting;
 
 namespace CanvasArtStoreSystem.Services.Data.Interfaces
 {
