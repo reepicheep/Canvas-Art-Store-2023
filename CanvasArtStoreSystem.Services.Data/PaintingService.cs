@@ -115,46 +115,46 @@ namespace CanvasArtStoreSystem.Services.Data
             };
         }
 
-        //public async Task<IEnumerable<HouseAllViewModel>> AllByAgentIdAsync(string agentId)
-        //{
-        //    IEnumerable<HouseAllViewModel> allAgentHouses = await this.dbContext
-        //        .Houses
-        //        .Where(h => h.IsActive &&
-        //                    h.AgentId.ToString() == agentId)
-        //        .Select(h => new HouseAllViewModel
-        //        {
-        //            Id = h.Id.ToString(),
-        //            Title = h.Title,
-        //            Address = h.Address,
-        //            ImageUrl = h.ImageUrl,
-        //            PricePerMonth = h.PricePerMonth,
-        //            IsRented = h.RenterId.HasValue
-        //        })
-        //        .ToArrayAsync();
+        public async Task<IEnumerable<PaintingAllViewModel>> AllByCuratorIdAsync(string curatorId)
+        {
+            IEnumerable<PaintingAllViewModel> allCuratorHouses = await this.dbContext
+                .Paintings
+                .Where(p => p.IsActive &&
+                            p.CuratorId.ToString() == curatorId)
+                .Select(p => new PaintingAllViewModel
+                {
+                    Id = p.Id.ToString(),
+                    Title = p.Title,
+                    Author = p.Author,
+                    ImageUrl = p.ImageUrl,
+                    Price = p.Price,
+                    IsBought = p.BuyerId.HasValue
+                })
+                .ToArrayAsync();
 
-        //    return allAgentHouses;
-        //}
+            return allCuratorHouses;
+        }
 
-        //public async Task<IEnumerable<HouseAllViewModel>> AllByUserIdAsync(string userId)
-        //{
-        //    IEnumerable<HouseAllViewModel> allUserHouses = await this.dbContext
-        //        .Houses
-        //        .Where(h => h.IsActive &&
-        //                    h.RenterId.HasValue &&
-        //                    h.RenterId.ToString() == userId)
-        //        .Select(h => new HouseAllViewModel
-        //        {
-        //            Id = h.Id.ToString(),
-        //            Title = h.Title,
-        //            Address = h.Address,
-        //            ImageUrl = h.ImageUrl,
-        //            PricePerMonth = h.PricePerMonth,
-        //            IsRented = h.RenterId.HasValue
-        //        })
-        //        .ToArrayAsync();
+        public async Task<IEnumerable<PaintingAllViewModel>> AllByUserIdAsync(string userId)
+        {
+            IEnumerable<PaintingAllViewModel> allUserPaintings = await this.dbContext
+                .Paintings
+                .Where(p => p.IsActive &&
+                            p.BuyerId.HasValue &&
+                            p.BuyerId.ToString() == userId)
+                .Select(p => new PaintingAllViewModel
+                {
+                    Id = p.Id.ToString(),
+                    Title = p.Title,
+                    Author = p.Author,
+                    ImageUrl = p.ImageUrl,
+                    Price = p.Price,
+                    IsBought = p.BuyerId.HasValue
+                })
+                .ToArrayAsync();
 
-        //    return allUserHouses;
-        //}
+            return allUserPaintings;
+        }
 
         //public async Task<bool> ExistsByIdAsync(string houseId)
         //{

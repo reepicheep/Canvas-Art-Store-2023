@@ -60,8 +60,8 @@ public class PaintingController : Controller
         }
         catch (Exception)
         {
-            return View(ErrorMessage); // check this and replace with below!
-            //return this.GeneralError();
+            //return View(ErrorMessage); // check this and replace with below!
+            return this.GeneralError();
         }
     }
 
@@ -110,5 +110,45 @@ public class PaintingController : Controller
 
             return this.View(model);
         }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Mine()
+    {
+        List<PaintingAllViewModel> myPaintings =
+            new List<PaintingAllViewModel>();
+
+        string userId = this.User.GetId()!;
+        bool isUserCurator = await this.curatorService
+            .CuratorExistsByUserIdAsync(userId);
+
+        try
+        {
+            if (isUserCurator)
+            {
+                string? curatorId =
+                    await this.curatorService.GetCuratorIdByUserIdAsync(userId);
+
+                myPaintings.AddRange(await this.paintingService.AllByCuratorIdAsync(curatorId!));
+            }
+            else
+            {
+                myPaintings.AddRange(await this.paintingService.AllByUserIdAsync(userId));
+            }
+
+            return this.View(myPaintings);
+        }
+        catch (Exception)
+        {
+            return this.GeneralError();
+        }
+    }
+
+    private IActionResult GeneralError()
+    {
+        this.TempData[ErrorMessage] =
+            "Unexpected error occurred! Please try again later or contact administrator";
+
+        return this.RedirectToAction("Index", "Home");
     }
 }

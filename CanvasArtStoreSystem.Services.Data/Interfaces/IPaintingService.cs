@@ -12,9 +12,9 @@ namespace CanvasArtStoreSystem.Services.Data.Interfaces
 
         Task<AllPaintingsFilteredAndPagedServiceModel> AllAsync(AllPaintingsQueryModel queryModel);
 
-        //Task<IEnumerable<HouseAllViewModel>> AllByAgentIdAsync(string agentId);
+        Task<IEnumerable<PaintingAllViewModel>> AllByCuratorIdAsync(string curatorId);
 
-        //Task<IEnumerable<HouseAllViewModel>> AllByUserIdAsync(string userId);
+        Task<IEnumerable<PaintingAllViewModel>> AllByUserIdAsync(string userId);
 
         //Task<bool> ExistsByIdAsync(string houseId);
 
