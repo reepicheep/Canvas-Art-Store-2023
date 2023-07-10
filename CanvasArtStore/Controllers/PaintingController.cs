@@ -138,107 +138,107 @@ public class PaintingController : Controller
         }
     }
 
-    //[HttpGet]
-    //public async Task<IActionResult> Edit(string id)
-    //{
-    //    bool houseExists = await this.houseService
-    //        .ExistsByIdAsync(id);
-    //    if (!houseExists)
-    //    {
-    //        this.TempData[ErrorMessage] = "House with the provided id does not exist!";
+    [HttpGet]
+    public async Task<IActionResult> Edit(string id)
+    {
+        bool paintingExists = await this.paintingService
+            .ExistsByIdAsync(id);
+        if (!paintingExists)
+        {
+            this.TempData[ErrorMessage] = "Painting with the provided id does not exist!";
 
-    //        return this.RedirectToAction("All", "House");
-    //    }
+            return this.RedirectToAction("All", "Painting");
+        }
 
-    //    bool isUserAgent = await this.agentService
-    //        .AgentExistsByUserIdAsync(this.User.GetId()!);
-    //    if (!isUserAgent)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must become an agent in order to edit house info!";
+        bool isUserCurator = await this.curatorService
+            .CuratorExistsByUserIdAsync(this.User.GetId()!);
+        if (!isUserCurator)
+        {
+            this.TempData[ErrorMessage] = "You must become a curator in order to edit painting info!";
 
-    //        return this.RedirectToAction("Become", "Agent");
-    //    }
+            return this.RedirectToAction("Become", "Curator");
+        }
 
-    //    string? agentId =
-    //        await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-    //    bool isAgentOwner = await this.houseService
-    //        .IsAgentWithIdOwnerOfHouseWithIdAsync(id, agentId!);
-    //    if (!isAgentOwner)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must be the agent owner of the house you want to edit!";
+        string? curatorId =
+            await this.curatorService.GetCuratorIdByUserIdAsync(this.User.GetId()!);
+        bool isCuratorOwner = await this.paintingService
+            .IsCuratorWithIdOwnerOfPaintingWithIdAsync(id, curatorId!);
+        if (!isCuratorOwner)
+        {
+            this.TempData[ErrorMessage] = "You must be the curator owner of the painting you want to edit!";
 
-    //        return this.RedirectToAction("Mine", "House");
-    //    }
+            return this.RedirectToAction("Mine", "Painting");
+        }
 
-    //    try
-    //    {
-    //        HouseFormModel formModel = await this.houseService
-    //            .GetHouseForEditByIdAsync(id);
-    //        formModel.Categories = await this.categoryService.AllCategoriesAsync();
+        try
+        {
+            PaintingFormModel formModel = await this.paintingService
+                .GetPaintingForEditByIdAsync(id);
+            formModel.Categories = await this.categoryService.AllCategoriesAsync();
 
-    //        return this.View(formModel);
-    //    }
-    //    catch (Exception)
-    //    {
-    //        return this.GeneralError();
-    //    }
-    //}
+            return this.View(formModel);
+        }
+        catch (Exception)
+        {
+            return this.GeneralError();
+        }
+    }
 
-    //[HttpPost]
-    //public async Task<IActionResult> Edit(string id, HouseFormModel model)
-    //{
-    //    if (!this.ModelState.IsValid)
-    //    {
-    //        model.Categories = await this.categoryService.AllCategoriesAsync();
+    [HttpPost]
+    public async Task<IActionResult> Edit(string id, PaintingFormModel model)
+    {
+        if (!this.ModelState.IsValid)
+        {
+            model.Categories = await this.categoryService.AllCategoriesAsync();
 
-    //        return this.View(model);
-    //    }
+            return this.View(model);
+        }
 
-    //    bool houseExists = await this.houseService
-    //        .ExistsByIdAsync(id);
-    //    if (!houseExists)
-    //    {
-    //        this.TempData[ErrorMessage] = "House with the provided id does not exist!";
+        bool paintingExists = await this.paintingService
+            .ExistsByIdAsync(id);
+        if (!paintingExists)
+        {
+            this.TempData[ErrorMessage] = "Painting with the provided id does not exist!";
 
-    //        return this.RedirectToAction("All", "House");
-    //    }
+            return this.RedirectToAction("All", "Painting");
+        }
 
-    //    bool isUserAgent = await this.agentService
-    //        .AgentExistsByUserIdAsync(this.User.GetId()!);
-    //    if (!isUserAgent)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must become an agent in order to edit house info!";
+        bool isUserCurator = await this.curatorService
+            .CuratorExistsByUserIdAsync(this.User.GetId()!);
+        if (!isUserCurator)
+        {
+            this.TempData[ErrorMessage] = "You must become a curator in order to edit painting info!";
 
-    //        return this.RedirectToAction("Become", "Agent");
-    //    }
+            return this.RedirectToAction("Become", "Curator");
+        }
 
-    //    string? agentId =
-    //        await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-    //    bool isAgentOwner = await this.houseService
-    //        .IsAgentWithIdOwnerOfHouseWithIdAsync(id, agentId!);
-    //    if (!isAgentOwner)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must be the agent owner of the house you want to edit!";
+        string? curatorId =
+            await this.curatorService.GetCuratorIdByUserIdAsync(this.User.GetId()!);
+        bool isCuratorOwner = await this.paintingService
+            .IsCuratorWithIdOwnerOfPaintingWithIdAsync(id, curatorId!);
+        if (!isCuratorOwner)
+        {
+            this.TempData[ErrorMessage] = "You must be the curator owner of the house you want to edit!";
 
-    //        return this.RedirectToAction("Mine", "House");
-    //    }
+            return this.RedirectToAction("Mine", "Painting");
+        }
 
-    //    try
-    //    {
-    //        await this.houseService.EditHouseByIdAndFormModelAsync(id, model);
-    //    }
-    //    catch (Exception)
-    //    {
-    //        this.ModelState.AddModelError(string.Empty,
-    //            "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
-    //        model.Categories = await this.categoryService.AllCategoriesAsync();
+        try
+        {
+            await this.paintingService.EditPaintingByIdAndFormModelAsync(id, model);
+        }
+        catch (Exception)
+        {
+            this.ModelState.AddModelError(string.Empty,
+                "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
+            model.Categories = await this.categoryService.AllCategoriesAsync();
 
-    //        return this.View(model);
-    //    }
+            return this.View(model);
+        }
 
-    //    this.TempData[SuccessMessage] = "House was edited successfully!";
-    //    return this.RedirectToAction("Details", "House", new { id });
-    //}
+        this.TempData[SuccessMessage] = "Painting was edited successfully!";
+        return this.RedirectToAction("Details", "Painting", new { id });
+    }
 
     //[HttpGet]
     //public async Task<IActionResult> Delete(string id)

@@ -20,11 +20,11 @@ namespace CanvasArtStoreSystem.Services.Data.Interfaces
 
         Task<PaintingDetailsViewModel> GetDetailsByIdAsync(string paintingId);
 
-        //Task<HouseFormModel> GetHouseForEditByIdAsync(string houseId);
+        Task<PaintingFormModel> GetPaintingForEditByIdAsync(string houseId);
 
-        //Task<bool> IsAgentWithIdOwnerOfHouseWithIdAsync(string houseId, string agentId);
+        Task<bool> IsCuratorWithIdOwnerOfPaintingWithIdAsync(string paintingId, string curatorId);
 
-        //Task EditHouseByIdAndFormModelAsync(string houseId, HouseFormModel formModel);
+        Task EditPaintingByIdAndFormModelAsync(string paintingId, PaintingFormModel formModel);
 
         //Task<HousePreDeleteDetailsViewModel> GetHouseForDeleteByIdAsync(string houseId);
 

@@ -195,51 +195,51 @@ namespace CanvasArtStoreSystem.Services.Data
             };
         }
 
-        //public async Task<HouseFormModel> GetHouseForEditByIdAsync(string houseId)
-        //{
-        //    House house = await this.dbContext
-        //        .Houses
-        //        .Include(h => h.Category)
-        //        .Where(h => h.IsActive)
-        //        .FirstAsync(h => h.Id.ToString() == houseId);
+        public async Task<PaintingFormModel> GetPaintingForEditByIdAsync(string paintingId)
+        {
+            Painting painting = await this.dbContext
+                .Paintings
+                .Include(p => p.Category)
+                .Where(p => p.IsActive)
+                .FirstAsync(p => p.Id.ToString() == paintingId);
 
-        //    return new HouseFormModel
-        //    {
-        //        Title = house.Title,
-        //        Address = house.Address,
-        //        Description = house.Description,
-        //        ImageUrl = house.ImageUrl,
-        //        PricePerMonth = house.PricePerMonth,
-        //        CategoryId = house.CategoryId,
-        //    };
-        //}
+            return new PaintingFormModel
+            {
+                Title = painting.Title,
+                Author = painting.Author,
+                Description = painting.Description,
+                ImageUrl = painting.ImageUrl,
+                Price = painting.Price,
+                CategoryId = painting.CategoryId,
+            };
+        }
 
-        //public async Task<bool> IsAgentWithIdOwnerOfHouseWithIdAsync(string houseId, string agentId)
-        //{
-        //    House house = await this.dbContext
-        //        .Houses
-        //        .Where(h => h.IsActive)
-        //        .FirstAsync(h => h.Id.ToString() == houseId);
+        public async Task<bool> IsCuratorWithIdOwnerOfPaintingWithIdAsync(string paintingId, string curatorId)
+        {
+            Painting painting = await this.dbContext
+                .Paintings
+                .Where(p => p.IsActive)
+                .FirstAsync(p => p.Id.ToString() == paintingId);
 
-        //    return house.AgentId.ToString() == agentId;
-        //}
+            return painting.CuratorId.ToString() == curatorId;
+        }
 
-        //public async Task EditHouseByIdAndFormModelAsync(string houseId, HouseFormModel formModel)
-        //{
-        //    House house = await this.dbContext
-        //        .Houses
-        //        .Where(h => h.IsActive)
-        //        .FirstAsync(h => h.Id.ToString() == houseId);
+        public async Task EditPaintingByIdAndFormModelAsync(string paintingId, PaintingFormModel formModel)
+        {
+            Painting painting = await this.dbContext
+                .Paintings
+                .Where(p => p.IsActive)
+                .FirstAsync(p => p.Id.ToString() == paintingId);
 
-        //    house.Title = formModel.Title;
-        //    house.Address = formModel.Address;
-        //    house.Description = formModel.Description;
-        //    house.ImageUrl = formModel.ImageUrl;
-        //    house.PricePerMonth = formModel.PricePerMonth;
-        //    house.CategoryId = formModel.CategoryId;
+            painting.Title = formModel.Title;
+            painting.Author = formModel.Author;
+            painting.Description = formModel.Description;
+            painting.ImageUrl = formModel.ImageUrl;
+            painting.Price = formModel.Price;
+            painting.CategoryId = formModel.CategoryId;
 
-        //    await this.dbContext.SaveChangesAsync();
-        //}
+            await this.dbContext.SaveChangesAsync();
+        }
 
         //public async Task<HousePreDeleteDetailsViewModel> GetHouseForDeleteByIdAsync(string houseId)
         //{
