@@ -16,9 +16,9 @@ namespace CanvasArtStoreSystem.Services.Data.Interfaces
 
         Task<IEnumerable<PaintingAllViewModel>> AllByUserIdAsync(string userId);
 
-        //Task<bool> ExistsByIdAsync(string houseId);
+        Task<bool> ExistsByIdAsync(string houseId);
 
-        //Task<HouseDetailsViewModel> GetDetailsByIdAsync(string houseId);
+        Task<PaintingDetailsViewModel> GetDetailsByIdAsync(string paintingId);
 
         //Task<HouseFormModel> GetHouseForEditByIdAsync(string houseId);
 

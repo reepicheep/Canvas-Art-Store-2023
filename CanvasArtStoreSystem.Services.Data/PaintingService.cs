@@ -1,5 +1,6 @@
 ﻿using CanvasArtStore.Data;
 using CanvasArtStore.Data.Models;
+using CanvasArtStore.Web.ViewModels.Curator;
 using CanvasArtStore.Web.ViewModels.Home;
 using CanvasArtStore.Web.ViewModels.Painting;
 using CanvasArtStore.Web.ViewModels.Painting.Enums;
@@ -37,7 +38,7 @@ namespace CanvasArtStoreSystem.Services.Data
 
         public async Task<string> CreateAndReturnIdAsync(PaintingFormModel formModel, string curatorId)
         {
-            Painting newPainting = new Painting
+            Painting newPainting = new() // Painting instead of ()
             {
                 Title = formModel.Title,
                 Author = formModel.Author,
@@ -156,43 +157,43 @@ namespace CanvasArtStoreSystem.Services.Data
             return allUserPaintings;
         }
 
-        //public async Task<bool> ExistsByIdAsync(string houseId)
-        //{
-        //    bool result = await this.dbContext
-        //        .Houses
-        //        .Where(h => h.IsActive)
-        //        .AnyAsync(h => h.Id.ToString() == houseId);
+        public async Task<bool> ExistsByIdAsync(string paintingId)
+        {
+            bool result = await this.dbContext
+                .Paintings
+                .Where(p => p.IsActive)
+                .AnyAsync(p => p.Id.ToString() == paintingId);
 
-        //    return result;
-        //}
+            return result;
+        }
 
-        //public async Task<HouseDetailsViewModel> GetDetailsByIdAsync(string houseId)
-        //{
-        //    House house = await this.dbContext
-        //        .Houses
-        //        .Include(h => h.Category)
-        //        .Include(h => h.Agent)
-        //        .ThenInclude(a => a.User)
-        //        .Where(h => h.IsActive)
-        //        .FirstAsync(h => h.Id.ToString() == houseId);
+        public async Task<PaintingDetailsViewModel> GetDetailsByIdAsync(string paintingId)
+        {
+            Painting painting = await this.dbContext
+                .Paintings
+                .Include(p => p.Category)
+                .Include(p => p.Curator)
+                .ThenInclude(a => a.User)
+                .Where(p => p.IsActive)
+                .FirstAsync(p => p.Id.ToString() == paintingId);
 
-        //    return new HouseDetailsViewModel
-        //    {
-        //        Id = house.Id.ToString(),
-        //        Title = house.Title,
-        //        Address = house.Address,
-        //        ImageUrl = house.ImageUrl,
-        //        PricePerMonth = house.PricePerMonth,
-        //        IsRented = house.RenterId.HasValue,
-        //        Description = house.Description,
-        //        Category = house.Category.Name,
-        //        Agent = new AgentInfoOnHouseViewModel()
-        //        {
-        //            Email = house.Agent.User.Email,
-        //            PhoneNumber = house.Agent.PhoneNumber
-        //        }
-        //    };
-        //}
+            return new PaintingDetailsViewModel
+            {
+                Id = painting.Id.ToString(),
+                Title = painting.Title,
+                Author = painting.Author,
+                ImageUrl = painting.ImageUrl,
+                Price = painting.Price,
+                IsBought = painting.BuyerId.HasValue,
+                Description = painting.Description,
+                Category = painting.Category.Name,
+                Curator = new CuratorInfoOnPaintingViewModel()
+                {
+                    Email = painting.Curator.User.Email,
+                    PhoneNumber = painting.Curator.PhoneNumber
+                }
+            };
+        }
 
         //public async Task<HouseFormModel> GetHouseForEditByIdAsync(string houseId)
         //{
