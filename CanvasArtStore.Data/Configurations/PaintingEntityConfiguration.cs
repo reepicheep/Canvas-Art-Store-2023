@@ -10,18 +10,22 @@ namespace CanvasArtStore.Data.Configurations
         {
             builder
                 .Property(p => p.CreatedOn)
-                .HasDefaultValue(DateTime.UtcNow);
+                .HasDefaultValueSql("GETDATE()");
 
             builder
-                .HasOne(h => h.Category)
+                .Property(p => p.IsActive)
+                .HasDefaultValue(true);
+
+            builder
+                .HasOne(p => p.Category)
                 .WithMany(c => c.Paintings)
-                .HasForeignKey(h => h.CategoryId)
+                .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(h => h.Curator)
+                .HasOne(p => p.Curator)
                 .WithMany(a => a.OwnedPaintings)
-                .HasForeignKey(h => h.CuratorId)
+                .HasForeignKey(p => p.CuratorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasData(this.GeneratePaintings());

@@ -4,6 +4,7 @@ using CanvasArtStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CanvasArtStore.Data.Migrations
 {
     [DbContext(typeof(CanvasArtStoreDbContext))]
-    partial class CanvasArtStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230710075914_FixCreatedOnValue")]
+    partial class FixCreatedOnValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,11 +181,6 @@ namespace CanvasArtStore.Data.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -205,7 +202,7 @@ namespace CanvasArtStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("23c394a2-7789-4835-bbb3-9b52c9e5d648"),
+                            Id = new Guid("9fced0bb-bedc-419b-a80c-01ef32751efe"),
                             Author = "Joel Filipe, Unsplash",
                             BuyerId = new Guid("da6fa3e5-9921-4aae-8e9b-502ae65a27f1"),
                             CategoryId = 1,
@@ -213,33 +210,30 @@ namespace CanvasArtStore.Data.Migrations
                             CuratorId = new Guid("83da74c8-b268-4d7e-a527-65082dfce13d"),
                             Description = "This painting was made with some experimental liquids as milk, water paint and oil.",
                             ImageUrl = "https://bityl.co/JYUO",
-                            IsActive = false,
                             Price = 1200.00m,
                             Title = "The Order of Chaos"
                         },
                         new
                         {
-                            Id = new Guid("b56a8d69-e5bb-4955-998b-375e15d7a30f"),
+                            Id = new Guid("62995100-ec96-405c-94f1-ae6b9be7d7f1"),
                             Author = "Eric Ravilious (d. 1942)",
                             CategoryId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuratorId = new Guid("83da74c8-b268-4d7e-a527-65082dfce13d"),
                             Description = "Thanks to Birmingham Museums Trust, the UK.",
                             ImageUrl = "https://bityl.co/JYU5",
-                            IsActive = false,
                             Price = 1200.00m,
                             Title = "The Tractor, 1933"
                         },
                         new
                         {
-                            Id = new Guid("851ed205-c3a4-4a1b-8303-0693f27c0e74"),
+                            Id = new Guid("6e2bf39c-8242-4964-86d2-2b531fa4548d"),
                             Author = "Kseniya Lapteva",
                             CategoryId = 3,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuratorId = new Guid("83da74c8-b268-4d7e-a527-65082dfce13d"),
                             Description = "Painting and HD Art Wallpaper",
                             ImageUrl = "https://bityl.co/JYUS",
-                            IsActive = false,
                             Price = 2000.00m,
                             Title = "No Name Contemporary"
                         });
