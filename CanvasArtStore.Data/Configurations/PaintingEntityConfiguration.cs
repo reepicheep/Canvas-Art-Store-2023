@@ -45,7 +45,7 @@ namespace CanvasArtStore.Data.Configurations
                 ImageUrl = "https://bityl.co/JYUO",
                 Price = 1200.00M,
                 CategoryId = 1,
-                CuratorId = Guid.Parse("83DA74C8-B268-4D7E-A527-65082DFCE13D"), //AgentId
+                CuratorId = Guid.Parse("83DA74C8-B268-4D7E-A527-65082DFCE13D"), //CuratorId
                 BuyerId = Guid.Parse("DA6FA3E5-9921-4AAE-8E9B-502AE65A27F1") //UserId
             };
             paintings.Add(painting);
@@ -58,7 +58,7 @@ namespace CanvasArtStore.Data.Configurations
                 ImageUrl = "https://bityl.co/JYU5",
                 Price = 1200.00M,
                 CategoryId = 2,
-                CuratorId = Guid.Parse("83DA74C8-B268-4D7E-A527-65082DFCE13D"), //AgentId
+                CuratorId = Guid.Parse("83DA74C8-B268-4D7E-A527-65082DFCE13D"), //CuratorId
             };
             paintings.Add(painting);
 
@@ -70,7 +70,7 @@ namespace CanvasArtStore.Data.Configurations
                 ImageUrl = "https://bityl.co/JYUS",
                 Price = 2000.00M,
                 CategoryId = 3,
-                CuratorId = Guid.Parse("83DA74C8-B268-4D7E-A527-65082DFCE13D"), //AgentId
+                CuratorId = Guid.Parse("83DA74C8-B268-4D7E-A527-65082DFCE13D"), //CuratorId
             };
             paintings.Add(painting);
 

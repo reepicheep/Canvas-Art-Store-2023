@@ -2,6 +2,7 @@
 
 <div class="col-md-4">
     <div class="card mb-3">
+        @*TODO class img-responsive*@
         <img class="card-img-top" src="@Model.ImageUrl" alt="Painting Image">
         <div class="card-body text-center">
             <h4>@Model.Title</h4>
@@ -10,7 +11,8 @@
                 Price:
                 <b>@($"{Model.Price:f2}") BGN</b>
             </h6>
-            @*<h6>(@(Model.IsBought ? "Bought" : "Not Bought"))</h6>*@
+            @*TODO <h6>*@
+            <h6>(@(Model.IsBought ? "Bought" : "Not Bought"))</h6>
             <br />
             <a asp-controller="Painting" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
