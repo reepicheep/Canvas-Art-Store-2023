@@ -241,31 +241,31 @@ namespace CanvasArtStoreSystem.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        //public async Task<HousePreDeleteDetailsViewModel> GetHouseForDeleteByIdAsync(string houseId)
-        //{
-        //    House house = await this.dbContext
-        //        .Houses
-        //        .Where(h => h.IsActive)
-        //        .FirstAsync(h => h.Id.ToString() == houseId);
+        public async Task<PaintingPreDeleteDetailsViewModel> GetPaintingForDeleteByIdAsync(string paintingId)
+        {
+            Painting painting = await this.dbContext
+                .Paintings
+                .Where(p => p.IsActive)
+                .FirstAsync(p => p.Id.ToString() == paintingId);
 
-        //    return new HousePreDeleteDetailsViewModel
-        //    {
-        //        Title = house.Title,
-        //        Address = house.Address,
-        //        ImageUrl = house.ImageUrl
-        //    };
-        //}
+            return new PaintingPreDeleteDetailsViewModel
+            {
+                Title = painting.Title,
+                Author = painting.Author,
+                ImageUrl = painting.ImageUrl
+            };
+        }
 
-        //public async Task DeleteHouseByIdAsync(string houseId)
-        //{
-        //    House houseToDelete = await this.dbContext
-        //        .Houses
-        //        .Where(h => h.IsActive)
-        //        .FirstAsync(h => h.Id.ToString() == houseId);
+        public async Task DeletePaintingByIdAsync(string paintingId)
+        {
+            Painting paintingToDelete = await this.dbContext
+                .Paintings
+                .Where(p => p.IsActive)
+                .FirstAsync(p => p.Id.ToString() == paintingId);
 
-        //    houseToDelete.IsActive = false;
+            paintingToDelete.IsActive = false;
 
-        //    await this.dbContext.SaveChangesAsync();
-        //}
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

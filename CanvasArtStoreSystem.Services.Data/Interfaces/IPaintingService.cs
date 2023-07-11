@@ -26,8 +26,8 @@ namespace CanvasArtStoreSystem.Services.Data.Interfaces
 
         Task EditPaintingByIdAndFormModelAsync(string paintingId, PaintingFormModel formModel);
 
-        //Task<HousePreDeleteDetailsViewModel> GetHouseForDeleteByIdAsync(string houseId);
+        Task<PaintingPreDeleteDetailsViewModel> GetPaintingForDeleteByIdAsync(string paintingId);
 
-        //Task DeleteHouseByIdAsync(string houseId);
+        Task DeletePaintingByIdAsync(string paintingId);
     }
 }

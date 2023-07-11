@@ -240,95 +240,95 @@ public class PaintingController : Controller
         return this.RedirectToAction("Details", "Painting", new { id });
     }
 
-    //[HttpGet]
-    //public async Task<IActionResult> Delete(string id)
-    //{
-    //    bool houseExists = await this.houseService
-    //        .ExistsByIdAsync(id);
-    //    if (!houseExists)
-    //    {
-    //        this.TempData[ErrorMessage] = "House with the provided id does not exist!";
+    [HttpGet]
+    public async Task<IActionResult> Delete(string id)
+    {
+        bool paintingExists = await this.paintingService
+            .ExistsByIdAsync(id);
+        if (!paintingExists)
+        {
+            this.TempData[ErrorMessage] = "Painting with the provided id does not exist!";
 
-    //        return this.RedirectToAction("All", "House");
-    //    }
+            return this.RedirectToAction("All", "Painting");
+        }
 
-    //    bool isUserAgent = await this.agentService
-    //        .AgentExistsByUserIdAsync(this.User.GetId()!);
-    //    if (!isUserAgent)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must become an agent in order to edit house info!";
+        bool isUserCurator = await this.curatorService
+            .CuratorExistsByUserIdAsync(this.User.GetId()!);
+        if (!isUserCurator)
+        {
+            this.TempData[ErrorMessage] = "You must become a curator in order to edit house info!";
 
-    //        return this.RedirectToAction("Become", "Agent");
-    //    }
+            return this.RedirectToAction("Become", "Curator");
+        }
 
-    //    string? agentId =
-    //        await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-    //    bool isAgentOwner = await this.houseService
-    //        .IsAgentWithIdOwnerOfHouseWithIdAsync(id, agentId!);
-    //    if (!isAgentOwner)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must be the agent owner of the house you want to edit!";
+        string? curatorId =
+            await this.curatorService.GetCuratorIdByUserIdAsync(this.User.GetId()!);
+        bool isCuratorOwner = await this.paintingService
+            .IsCuratorWithIdOwnerOfPaintingWithIdAsync(id, curatorId!);
+        if (!isCuratorOwner)
+        {
+            this.TempData[ErrorMessage] = "You must be the curator owner of the house you want to edit!";
 
-    //        return this.RedirectToAction("Mine", "House");
-    //    }
+            return this.RedirectToAction("Mine", "Painting");
+        }
 
-    //    try
-    //    {
-    //        HousePreDeleteDetailsViewModel viewModel =
-    //            await this.houseService.GetHouseForDeleteByIdAsync(id);
+        try
+        {
+            PaintingPreDeleteDetailsViewModel viewModel =
+                await this.paintingService.GetPaintingForDeleteByIdAsync(id);
 
-    //        return this.View(viewModel);
-    //    }
-    //    catch (Exception)
-    //    {
-    //        return this.GeneralError();
-    //    }
-    //}
+            return this.View(viewModel);
+        }
+        catch (Exception)
+        {
+            return this.GeneralError();
+        }
+    }
 
-    //[HttpPost]
-    //public async Task<IActionResult> Delete(string id, HousePreDeleteDetailsViewModel model)
-    //{
-    //    bool houseExists = await this.houseService
-    //        .ExistsByIdAsync(id);
-    //    if (!houseExists)
-    //    {
-    //        this.TempData[ErrorMessage] = "House with the provided id does not exist!";
+    [HttpPost]
+    public async Task<IActionResult> Delete(string id, PaintingPreDeleteDetailsViewModel model)
+    {
+        bool paintingExists = await this.paintingService
+            .ExistsByIdAsync(id);
+        if (!paintingExists)
+        {
+            this.TempData[ErrorMessage] = "Painting with the provided id does not exist!";
 
-    //        return this.RedirectToAction("All", "House");
-    //    }
+            return this.RedirectToAction("All", "Painting");
+        }
 
-    //    bool isUserAgent = await this.agentService
-    //        .AgentExistsByUserIdAsync(this.User.GetId()!);
-    //    if (!isUserAgent)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must become an agent in order to edit house info!";
+        bool isUserCurator = await this.curatorService
+            .CuratorExistsByUserIdAsync(this.User.GetId()!);
+        if (!isUserCurator)
+        {
+            this.TempData[ErrorMessage] = "You must become a curator in order to edit painting info!";
 
-    //        return this.RedirectToAction("Become", "Agent");
-    //    }
+            return this.RedirectToAction("Become", "Curator");
+        }
 
-    //    string? agentId =
-    //        await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-    //    bool isAgentOwner = await this.houseService
-    //        .IsAgentWithIdOwnerOfHouseWithIdAsync(id, agentId!);
-    //    if (!isAgentOwner)
-    //    {
-    //        this.TempData[ErrorMessage] = "You must be the agent owner of the house you want to edit!";
+        string? curatorId =
+            await this.curatorService.GetCuratorIdByUserIdAsync(this.User.GetId()!);
+        bool isCuratorOwner = await this.paintingService
+            .IsCuratorWithIdOwnerOfPaintingWithIdAsync(id, curatorId!);
+        if (!isCuratorOwner)
+        {
+            this.TempData[ErrorMessage] = "You must be the curator owner of the house you want to edit!";
 
-    //        return this.RedirectToAction("Mine", "House");
-    //    }
+            return this.RedirectToAction("Mine", "Painting");
+        }
 
-    //    try
-    //    {
-    //        await this.houseService.DeleteHouseByIdAsync(id);
+        try
+        {
+            await this.paintingService.DeletePaintingByIdAsync(id);
 
-    //        this.TempData[WarningMessage] = "The house was successfully deleted!";
-    //        return this.RedirectToAction("Mine", "House");
-    //    }
-    //    catch (Exception)
-    //    {
-    //        return this.GeneralError();
-    //    }
-    //}
+            this.TempData[WarningMessage] = "The painting was successfully deleted!";
+            return this.RedirectToAction("Mine", "Painting");
+        }
+        catch (Exception)
+        {
+            return this.GeneralError();
+        }
+    }
 
     [HttpGet]
     public async Task<IActionResult> Mine()
